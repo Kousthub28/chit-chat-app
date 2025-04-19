@@ -1,0 +1,24 @@
+/* Remove any unwanted default styles */
+
+body {
+  margin: 0;
+  font-family: "Work Sans", sans-serif; /* Make sure the font family is applied */
+  color: #000; /* Ensure the text color is set to black or desired color */
+  background-color: #fff; /* Ensure the background color is set to white or desired color */
+}
+
+* {
+  box-sizing: border-box; /* Ensure box-sizing is set */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* Chat message specific styles */
+.chat-message {
+  color: #000; /* Set the chat message text color to black or desired dark color */
+}
+
+/* Add any other global styles as needed */
