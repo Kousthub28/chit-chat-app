@@ -61,16 +61,16 @@ This document describes the MongoDB database schema for the Chit-Chat applicatio
 
 #### Schema Definition
 
-| Field Name | Data Type | Required | Default | Description |
-|------------|-----------|----------|---------|-------------|
-| `_id` | ObjectId | Yes | Auto-generated | MongoDB unique identifier |
-| `chatName` | String | Yes | - | Name of the chat (trimmed) |
-| `isGroupChat` | Boolean | No | false | Flag indicating if this is a group chat |
-| `users` | Array[ObjectId] | No | [] | Array of User references (participants) |
-| `latestMessage` | ObjectId | No | null | Reference to the most recent Message |
-| `groupAdmin` | ObjectId | No | null | Reference to User who is the group admin |
-| `createdAt` | Date | Yes | Auto-generated | Timestamp when chat was created |
-| `updatedAt` | Date | Yes | Auto-generated | Timestamp when chat was last updated |
+| Field Name | Data Type | Required | Unique | Default | Description |
+|------------|-----------|----------|--------|---------|-------------|
+| `_id` | ObjectId | Yes | Yes | Auto-generated | MongoDB unique identifier |
+| `chatName` | String | Yes | No | - | Name of the chat (trimmed) |
+| `isGroupChat` | Boolean | No | No | false | Flag indicating if this is a group chat |
+| `users` | Array[ObjectId] | No | No | [] | Array of User references (participants) |
+| `latestMessage` | ObjectId | No | No | null | Reference to the most recent Message |
+| `groupAdmin` | ObjectId | No | No | null | Reference to User who is the group admin |
+| `createdAt` | Date | Yes | No | Auto-generated | Timestamp when chat was created |
+| `updatedAt` | Date | Yes | No | Auto-generated | Timestamp when chat was last updated |
 
 #### Relationships
 - **users**: References `User` collection (many-to-many relationship)
@@ -130,14 +130,14 @@ This document describes the MongoDB database schema for the Chit-Chat applicatio
 
 #### Schema Definition
 
-| Field Name | Data Type | Required | Description |
-|------------|-----------|----------|-------------|
-| `_id` | ObjectId | Yes | MongoDB unique identifier (auto-generated) |
-| `sender` | ObjectId | No | Reference to User who sent the message |
-| `content` | String | No | Message text content (trimmed) |
-| `chat` | ObjectId | No | Reference to Chat this message belongs to |
-| `createdAt` | Date | Yes | Timestamp when message was sent (auto-generated) |
-| `updatedAt` | Date | Yes | Timestamp when message was last updated (auto-generated) |
+| Field Name | Data Type | Required | Unique | Default | Description |
+|------------|-----------|----------|--------|---------|-------------|
+| `_id` | ObjectId | Yes | Yes | Auto-generated | MongoDB unique identifier (auto-generated) |
+| `sender` | ObjectId | No | No | null | Reference to User who sent the message |
+| `content` | String | No | No | - | Message text content (trimmed) |
+| `chat` | ObjectId | No | No | null | Reference to Chat this message belongs to |
+| `createdAt` | Date | Yes | No | Auto-generated | Timestamp when message was sent (auto-generated) |
+| `updatedAt` | Date | Yes | No | Auto-generated | Timestamp when message was last updated (auto-generated) |
 
 #### Relationships
 - **sender**: References `User` collection (many-to-one relationship)
@@ -346,7 +346,7 @@ Message.find({ chat: chatId })
 ### Create a new one-on-one chat
 ```javascript
 const chat = await Chat.create({
-  chatName: 'sender',
+  chatName: 'John & Jane',
   isGroupChat: false,
   users: [userId1, userId2]
 })
